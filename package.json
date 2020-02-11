@@ -1,0 +1,27 @@
+{
+  "name": "babloved",
+  "version": "1.0.0",
+  "description": "usd bot",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hornT/Babloved.git"
+  },
+  "keywords": [
+    "usd",
+    "bot"
+  ],
+  "author": "Father Nikolay",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hornT/Babloved/issues"
+  },
+  "homepage": "https://github.com/hornT/Babloved#readme",
+  "dependencies": {
+    "node-fetch": "^2.6.0"
+  }
+}
