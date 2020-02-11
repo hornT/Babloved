@@ -1,22 +1,27 @@
-const fetch = require("node-fetch");
+const { getCurrency } = require('./currency');
+const bot = require('./bot');
 
-setInterval(getCurrency, 5 * 1000 * 60);
+module.exports.bot = async (event) => {
+  
+  const body = JSON.parse(event.body);
 
-async function getCurrency(){
+  const msg = {
+    'method': 'sendMessage',
+    'chat_id': body.message.chat.id,
+    'text': body.message.text
+  };
 
-  let response = await fetch('https://api.tinkoff.ru/v1/currency_rates?from=USD&to=RUB');
+  return {
+    'statusCode': 200,
+    'headers': {
+      'Content-Type': 'application/json'
+    },
+    'body': JSON.stringify(msg),
+    'isBase64Encoded': false
+  };
+};
 
-  if (response.ok) {
-    let body = await response.json();
-    parseResponse(body);
-  } else {
-    console.error("Error: " + response.status);
-  }
-}
-
-function parseResponse(body){
-
-  let rate = body.payload.rates.find((element, index) => element.category === 'SavingAccountTransfers');
-
-  console.log(rate.buy);
-}
+setInterval(async () => {
+  let rate = await getCurrency();
+  bot.processNewRate(rate);
+}, 5 * 1000);
