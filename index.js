@@ -5,6 +5,9 @@ const app = new Koa();
 const config = require('./config.json')
 
 
+
+config.botId = config.botId || process.env.BOT_ID;
+config.chatId = config.chatId || process.env.CHAT_ID;
 global.gConfig = config;
 
 app.use(async ctx => {
@@ -33,22 +36,18 @@ module.exports.bot = async (event) => {
   };
 };
 
-setInterval(async () => {
+setInterval(processApi, global.gConfig.currencyApiTimeout);
+
+async function processApi(){
   if(isWorkingTime() !== true) return;
   let rate = await getCurrency();
-  bot.processNewRate(rate);
-}, global.gConfig.currencyApiTimeout);
-
-function getApiWorkingDate(){
-  const now = new Date();
-
-  return new Date(now.getTime() + (now.getTimezoneOffset() + global.gConfig.timezoneOffset) * 60000);
+  await bot.processNewRate(rate);
 }
 
 function isWorkingTime(){
   const date = getApiWorkingDate();
 
-  const day = dae.getDay();
+  const day = date.getDay();
   if(day < 1 || day > 5) return false; // work from moday to friday
 
   const hours = date.getHours();
@@ -56,4 +55,10 @@ function isWorkingTime(){
   if(hours < 10 || hours > 18) return false; // work from 10 till 18-30
 
   return true;
+}
+
+function getApiWorkingDate(){
+  const now = new Date();
+
+  return new Date(now.getTime() + (now.getTimezoneOffset() + global.gConfig.timezoneOffset) * 60000);
 }
