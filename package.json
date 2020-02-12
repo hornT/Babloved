@@ -4,7 +4,8 @@
   "description": "usd bot",
   "main": "index.js",
   "scripts": {
-    "start": "node -r dotenv/config index.js",
+    "start": "node index.js",
+    "dev": "node -r dotenv/config index.js",
     "test": "test"
   },
   "repository": {
