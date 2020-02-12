@@ -10,5 +10,5 @@ async function getCurrency () {
 
 
 module.exports = {
-    getCurrency,
+    getCurrency
 };

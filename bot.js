@@ -1,5 +1,7 @@
 function processNewRate(rate){
-    console.log(rate);
+    console.log(`rate: ${rate}`);
 }
 
-module.exports = {processNewRate};
+module.exports = {
+    processNewRate
+};
