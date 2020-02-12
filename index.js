@@ -2,6 +2,10 @@ const { getCurrency } = require('./currency');
 const bot = require('./bot');
 const Koa = require('koa');
 const app = new Koa();
+const config = require('./config.json')
+
+
+global.gConfig = config;
 
 app.use(async ctx => {
   ctx.body = 'Hello World';
@@ -32,4 +36,4 @@ module.exports.bot = async (event) => {
 setInterval(async () => {
   let rate = await getCurrency();
   bot.processNewRate(rate);
-}, 5 * 1000);
+}, global.gConfig.currencyApiTimeout);

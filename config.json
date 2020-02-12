@@ -1,0 +1,5 @@
+{
+    "currencyApiTimeout": 5000,
+    "currencyApi": "https://api.tinkoff.ru/v1/currency_rates?from=USD&to=RUB",
+    "currencyCategory": "SavingAccountTransfers"
+}
