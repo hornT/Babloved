@@ -7,6 +7,7 @@ const {
     RATE_DELTA = 0.2,
     BOT_ID,
     CHAT_ID,
+    MONGOLAB_URI,
 } = process.env;
 
 module.exports = {
@@ -18,4 +19,5 @@ module.exports = {
     RATE_DELTA: Number(RATE_DELTA),
     BOT_ID,
     CHAT_ID: Number(CHAT_ID),
+    MONGOLAB_URI,
 }
