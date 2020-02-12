@@ -4,7 +4,7 @@
   "description": "usd bot",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node -r dotenv/config index.js",
     "test": "test"
   },
   "repository": {
@@ -24,5 +24,8 @@
   "dependencies": {
     "axios": "^0.19.2",
     "koa": "^2.11.0"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0"
   }
 }

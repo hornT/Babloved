@@ -1,26 +1,27 @@
 const axios = require('axios').default;
+const config = require('./config')
 
-let lastRate = 0.0;
+let lastRate = 62.8;
+const delta = config.RATE_DELTA;
+const sendMesageUrl = `https://api.telegram.org/bot${config.BOT_ID}/sendMessage`;
 
 async function processNewRate(rate){
     console.log(`rate: ${rate}`);
 
-    if(Math.abs(rate - lastRate) < global.gConfig.rateDelta) return;
+    if(Math.abs(rate - lastRate) < delta) return;
 
     lastRate = rate;
+    
     await sendRateMessage(rate);
 }
 
 async function sendRateMessage(rate){
     const message = {
-        chat_id: global.gConfig.chatId,
+        chat_id: config.CHAT_ID,
         text: rate
     }
 
-    const url = `https://api.telegram.org/bot${global.gConfig.botId}/sendMessage`;
-
-    //const response = await axios.post('https://api.telegram.org/bot1001880691:AAGT4bSPR4XZx-E9hhXq1U_5aYDUHo1ceWg/sendMessage', message);
-    const response = await axios.post(url, message);
+    const response = await axios.post(sendMesageUrl, message);
 }
 
 module.exports = {

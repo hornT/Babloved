@@ -2,19 +2,14 @@ const { getCurrency } = require('./currency');
 const bot = require('./bot');
 const Koa = require('koa');
 const app = new Koa();
-const config = require('./config.json')
+const config = require('./config')
 
-
-
-config.botId = config.botId || process.env.BOT_ID;
-config.chatId = config.chatId || process.env.CHAT_ID;
-global.gConfig = config;
 
 app.use(async ctx => {
   ctx.body = 'Hello World';
 });
 
-app.listen(process.env.PORT || 5000);
+app.listen(config.PORT);
 
 module.exports.bot = async (event) => {
   
@@ -36,7 +31,7 @@ module.exports.bot = async (event) => {
   };
 };
 
-setInterval(processApi, global.gConfig.currencyApiTimeout);
+setInterval(processApi, config.CURRENCY_API_TIMEOUT);
 
 async function processApi(){
   if(isWorkingTime() !== true) return;
@@ -60,5 +55,5 @@ function isWorkingTime(){
 function getApiWorkingDate(){
   const now = new Date();
 
-  return new Date(now.getTime() + (now.getTimezoneOffset() + global.gConfig.timezoneOffset) * 60000);
+  return new Date(now.getTime() + (now.getTimezoneOffset() + config.TIMEZONE_OFFSET) * 60000);
 }

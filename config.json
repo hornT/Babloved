@@ -1,7 +1,0 @@
-{
-    "currencyApiTimeout": 300000,
-    "currencyApi": "https://api.tinkoff.ru/v1/currency_rates?from=USD&to=RUB",
-    "currencyCategory": "SavingAccountTransfers",
-    "timezoneOffset": 180,
-    "rateDelta": 0.2
-}
