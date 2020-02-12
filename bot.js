@@ -8,11 +8,16 @@ const sendMesageUrl = `https://api.telegram.org/bot${config.BOT_ID}/sendMessage`
 async function processNewRate(rate){
     console.log(`rate: ${rate}`);
 
-    if(Math.abs(rate - lastRate) < delta) return;
+    const diff = rate - lastRate;
+    if(Math.abs(diff) < delta) return;
 
     lastRate = rate;
-    
-    await sendRateMessage(rate);
+
+    let rateStr = String(rate);
+    if (rate < 61) rateStr = ':japanese_goblin: ' + rateStr;
+    rateStr += ' ' + diff > 0 ? ':point_up:' : ':point_down:';
+
+    await sendRateMessage(rateStr);
 }
 
 async function sendRateMessage(rate){
