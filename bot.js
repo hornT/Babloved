@@ -9,10 +9,6 @@ let lastRate = 0; //62.8;
 let id;
 
 async function processNewRate(rate){
-    // get ip
-    const data = await axios.get('http://www.geoplugin.net/json.gp?jsoncallback=?');
-    console.log(data);
-    
     console.log(`rate: ${rate}, lastRate: ${lastRate}`);
 
     if(lastRate < 1) await initLastRate();
