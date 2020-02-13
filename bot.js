@@ -42,7 +42,7 @@ async function compareRate(rate){
 
     let rateStr = String(rate);
     if (rate < 61) rateStr = ':japanese_goblin: ' + rateStr;
-    rateStr += ' ' + (diff > 0 ? ':point_up:' : ':point_down:');
+    rateStr += ' ' + (diff > 0 ? ':point:' : ':point_down:');
 
     console.log(`new rate: ${rateStr}`);
 
