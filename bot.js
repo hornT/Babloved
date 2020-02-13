@@ -5,7 +5,7 @@ const delta = config.RATE_DELTA;
 const sendMesageUrl = `https://api.telegram.org/bot${config.BOT_ID}/sendMessage`;
 
 
-let lastRate = 0; //62.8;
+let lastRate = 0;
 let id;
 
 async function processNewRate(rate){
@@ -45,7 +45,7 @@ async function compareRate(rate){
     rateStr += ' ' + diff > 0 ? ':point_up:' : ':point_down:';
 
     await saveRate(lastRate);
-    //await sendRateMessage(rateStr);
+    await sendRateMessage(rateStr);
 }
 
 async function saveRate(lastRate){
