@@ -31,8 +31,7 @@ module.exports.bot = async (event) => {
   };
 };
 
-processApi();
-//setInterval(processApi, config.CURRENCY_API_TIMEOUT);
+setInterval(processApi, config.CURRENCY_API_TIMEOUT);
 
 async function processApi(){
   if(isWorkingTime() !== true) return;
