@@ -44,6 +44,8 @@ async function compareRate(rate){
     if (rate < 61) rateStr = ':japanese_goblin: ' + rateStr;
     rateStr += ' ' + diff > 0 ? ':point_up:' : ':point_down:';
 
+    console.log(`new rate: ${rateStr}`);
+
     await saveRate(lastRate);
     await sendRateMessage(rateStr);
 }
