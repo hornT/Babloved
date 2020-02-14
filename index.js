@@ -11,26 +11,6 @@ app.use(async ctx => {
 
 app.listen(config.PORT);
 
-module.exports.bot = async (event) => {
-  
-  const body = JSON.parse(event.body);
-
-  const msg = {
-    'method': 'sendMessage',
-    'chat_id': body.message.chat.id,
-    'text': body.message.text
-  };
-
-  return {
-    'statusCode': 200,
-    'headers': {
-      'Content-Type': 'application/json'
-    },
-    'body': JSON.stringify(msg),
-    'isBase64Encoded': false
-  };
-};
-
 processApi();
 setInterval(processApi, config.CURRENCY_API_TIMEOUT);
 

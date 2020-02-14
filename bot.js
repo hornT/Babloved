@@ -1,37 +1,18 @@
 const axios = require('axios').default;
 const config = require('./config');
-const MongoClient = require('mongodb').MongoClient;
+const rates = require('./ratesDb');
 const delta = config.RATE_DELTA;
 const sendMesageUrl = `https://api.telegram.org/bot${config.BOT_ID}/sendMessage`;
 
 
 let lastRate = 0;
-let id;
 
 async function processNewRate(rate){
     console.log(`rate: ${rate}, lastRate: ${lastRate}`);
 
-    if(lastRate < 1) await initLastRate();
+    if(lastRate < 1) lastRate = await rates.getLastRate();
 
     await compareRate(rate);
-}
-
-async function initLastRate(callback){
-    const client = await MongoClient.connect(config.MONGOLAB_URI, { 
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    });
-
-    const db = client.db('babloved');
-    const collection = db.collection("rates");
-    const result = await collection.findOne({});
-
-    lastRate = result.last;
-    id = result._id;
-
-    console.log(`init last: ${lastRate}`);
-
-    client.close();
 }
 
 async function compareRate(rate){
@@ -41,36 +22,13 @@ async function compareRate(rate){
     lastRate = rate;
 
     let rateStr = String(rate);
-    if (rate < 61) rateStr = ':japanese_goblin: ' + rateStr;
-    rateStr += ' ' + (diff > 0 ? ':point:' : ':point_down:');
+    if (rate < config.VERY_BAD_RATE) rateStr = config.VERY_BAD_RATE_SMILE + ' ' + rateStr;
+    rateStr += ' ' + (diff > 0 ? config.RATE_UP_SMILE : config.RATE_DOWN_SMILE);
 
     console.log(`new rate: ${rateStr}`);
 
-    await saveRate(lastRate);
+    await rates.saveLastRate(lastRate);
     await sendRateMessage(rateStr);
-}
-
-async function saveRate(lastRate){
-    const client = await MongoClient.connect(config.MONGOLAB_URI, { 
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    });
-
-    const db = client.db('babloved');
-    const collection = db.collection("rates");
-
-    const rate = {
-        last: lastRate,
-    };
-
-    await collection.updateOne(
-        { "_id": id },
-        { $set: rate }
-    );
-
-    console.log(`update last: ${lastRate}`);
-
-    client.close();
 }
 
 async function sendRateMessage(rate){

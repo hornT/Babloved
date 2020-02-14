@@ -8,6 +8,10 @@ const {
     BOT_ID,
     CHAT_ID,
     MONGOLAB_URI,
+    VERY_BAD_RATE = 61,
+    VERY_BAD_RATE_SMILE = ':japanese_goblin:',
+    RATE_UP_SMILE = ':point:',
+    RATE_DOWN_SMILE = ':point_down:',
 } = process.env;
 
 module.exports = {
@@ -20,4 +24,8 @@ module.exports = {
     BOT_ID,
     CHAT_ID: Number(CHAT_ID),
     MONGOLAB_URI,
+    VERY_BAD_RATE = Number(VERY_BAD_RATE),
+    VERY_BAD_RATE_SMILE,
+    RATE_UP_SMILE,
+    RATE_DOWN_SMILE,
 }
