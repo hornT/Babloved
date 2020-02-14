@@ -24,7 +24,7 @@ module.exports = {
     BOT_ID,
     CHAT_ID: Number(CHAT_ID),
     MONGOLAB_URI,
-    VERY_BAD_RATE = Number(VERY_BAD_RATE),
+    VERY_BAD_RATE: Number(VERY_BAD_RATE),
     VERY_BAD_RATE_SMILE,
     RATE_UP_SMILE,
     RATE_DOWN_SMILE,
