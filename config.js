@@ -1,17 +1,19 @@
 const {
-    PORT = 5000,
+    PORT = 5500,
     CURRENCY_API_TIMEOUT = 5 * 60 * 1000,
     CURRENCY_API = 'https://api.tinkoff.ru/v1/currency_rates?from=USD&to=RUB',
     CURRENCY_CATEGORY = 'SavingAccountTransfers',
     TIMEZONE_OFFSET = 180,
-    RATE_DELTA = 0.2,
+    RATE_DELTA = 0.15,
     BOT_ID,
     CHAT_ID,
     MONGOLAB_URI,
     VERY_BAD_RATE = 61,
-    VERY_BAD_RATE_SMILE = ':japanese_goblin:',
-    RATE_UP_SMILE = ':point:',
-    RATE_DOWN_SMILE = ':point_down:',
+    VERY_GOOD_RATE = 64,
+    VERY_BAD_RATE_SMILE = '💩',
+    VERY_GOOD_RATE_SMILE = '💲',
+    RATE_UP_SMILE = '💪',
+    RATE_DOWN_SMILE = '👿',
 } = process.env;
 
 module.exports = {
@@ -25,7 +27,9 @@ module.exports = {
     CHAT_ID: Number(CHAT_ID),
     MONGOLAB_URI,
     VERY_BAD_RATE: Number(VERY_BAD_RATE),
+    VERY_GOOD_RATE: Number(VERY_GOOD_RATE),
     VERY_BAD_RATE_SMILE,
+    VERY_GOOD_RATE_SMILE,
     RATE_UP_SMILE,
     RATE_DOWN_SMILE,
 }

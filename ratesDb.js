@@ -27,6 +27,7 @@ async function saveLastRate(lastRate){
 
     const db = client.db('babloved');
     const collection = db.collection("rates");
+    const historyCollection = db.collection("history");
 
     const rate = {
         rate: lastRate,
@@ -35,6 +36,13 @@ async function saveLastRate(lastRate){
     await collection.updateOne(
         { type: 'last' },
         { $set: rate }
+    );
+
+    await historyCollection.insertOne(
+        {
+            date: new Date(),
+            rate: lastRate
+        }
     );
 
     console.log(`update last: ${lastRate}`);
