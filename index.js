@@ -1,21 +1,15 @@
 const { getCurrency } = require('./currency');
 const bot = require('./bot');
-const Koa = require('koa');
-const app = new Koa();
-const config = require('./config')
-
-
-app.use(async ctx => {
-  ctx.body = 'Hello World';
-});
-
-app.listen(config.PORT);
+const config = require('./config');
 
 processApi();
 setInterval(processApi, config.CURRENCY_API_TIMEOUT);
 
 async function processApi(){
-  if(isWorkingTime() !== true) return;
+  if(isWorkingTime() !== true) {
+    console.log('sleep');
+    return;
+  }
   let rate = await getCurrency();
   await bot.processNewRate(rate);
 }

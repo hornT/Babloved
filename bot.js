@@ -1,18 +1,10 @@
 const config = require('./config');
 const rates = require('./ratesDb');
 const delta = config.RATE_DELTA;
-const Agent = require('socks5-https-client/lib/Agent');
 const TelegramBot = require('node-telegram-bot-api')
 
 const bot = new TelegramBot(config.BOT_ID, {
     polling: true,
-    request: {
-        agentClass: Agent,
-        agentOptions: {
-            socksHost: '127.0.0.1',
-            socksPort: '9150'
-        }
-    }
 });
 
 let lastRate = 0;
@@ -23,21 +15,25 @@ bot.onText(/\/echo (.+)/, (msg, match) => {
     const chatId = msg.chat.id;
     const resp = match[1];
   
-    console.log(`chatid: ${chatId}, resp: ${resp}`);
+    console.log(`echo. chatid: ${chatId}, resp: ${resp} who: ${msg.from.first_name}`);
 });
-  
-bot.on('message', (msg) => {
+
+bot.onText(/\/rate/, (msg, match) => {
+
     const chatId = msg.chat.id;
 
-    if(msg.text === '/rate'){
-        bot.sendMessage(chatId, actualRate);
-        return;
-    }
-    
-    bot.sendMessage(chatId, `Получили твое сообщение! ${config.RATE_UP_SMILE} Спасибо! @${msg.from.first_name}`);
+    bot.sendMessage(chatId, actualRate);
 
-    console.log(`chatid: ${chatId}, text: ${msg.text}`);
-    console.log(msg);
+    console.log(`rate. chatid: ${chatId}, who: ${msg.from.first_name}`);
+});
+
+bot.onText(/\/history/, (msg, match) => {
+
+    const chatId = msg.chat.id;
+
+    bot.sendMessage(chatId, '<b>not ready</b>', {parse_mode: 'HTML'});
+
+    console.log(`history. chatid: ${chatId}, who: ${msg.from.first_name}`);
 });
 
 async function processNewRate(rate){
