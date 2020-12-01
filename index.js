@@ -15,6 +15,7 @@ async function processApi(){
 }
 
 function isWorkingTime(){
+
   const date = getApiWorkingDate();
 
   const day = date.getDay();

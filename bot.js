@@ -37,9 +37,9 @@ bot.onText(/\/history/, (msg, match) => {
 });
 
 async function processNewRate(rate){
-    console.log(`${(new Date()).toLocaleTimeString()} rate: ${rate}, lastRate: ${lastRate}`);
+    console.log(`${(new Date()).toLocaleTimeString()} rate: ${rate.rate}, lastRate: ${lastRate}, proRate: ${rate.proRate}`);
 
-    actualRate = rate;
+    actualRate = rate.rate;
     if(lastRate < 1) {
         lastRate = await rates.getLastRate();
     }
@@ -47,13 +47,15 @@ async function processNewRate(rate){
     await compareRate(rate);
 }
 
-async function compareRate(rate){
+async function compareRate(rateData){
+    const rate = rateData.rate;
+    const proRate = rateData.proRate;
     const diff = Number((rate - lastRate).toFixed(2));
     if(Math.abs(diff) < delta) return;
 
     lastRate = rate;
 
-    let rateStr = String(rate);
+    let rateStr = `${rate}, pro: ${proRate}`;
 
     if (rate < config.VERY_BAD_RATE) rateStr = config.VERY_BAD_RATE_SMILE + ' ' + rateStr;
     else if (rate > config.VERY_GOOD_RATE) rateStr = config.VERY_GOOD_RATE_SMILE + ' ' + rateStr;
@@ -65,9 +67,9 @@ async function compareRate(rate){
     await sendRateMessage(rateStr);
 }
 
-async function sendRateMessage(rate){
+async function sendRateMessage(rateStr){
 
-    bot.sendMessage(config.CHAT_ID, rate);
+    bot.sendMessage(config.CHAT_ID, rateStr);
 }
 
 module.exports = {
