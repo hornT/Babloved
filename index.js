@@ -1,6 +1,7 @@
 const { getCurrency } = require('./currency');
 const bot = require('./bot');
 const config = require('./config');
+const {startTime, endTime} = getStartEndTime();
 
 processApi();
 setInterval(processApi, config.CURRENCY_API_TIMEOUT);
@@ -21,15 +22,26 @@ function isWorkingTime(){
   const day = date.getDay();
   if(day < 1 || day > 5) return false; // work from moday to friday
 
-  const hours = date.getHours();
-  // TODO check for 18-30
-  if(hours < 10 || hours > 18) return false; // work from 10 till 18-30
-
-  return true;
+  return startTime < date && date < endTime;
 }
 
 function getApiWorkingDate(){
   const now = new Date();
 
   return new Date(now.getTime() + (now.getTimezoneOffset() + config.TIMEZONE_OFFSET) * 60000);
+}
+
+function getStartEndTime(){
+  let startTime = new Date();
+  let endTime = new Date();
+
+  const valueStart = config.START_TIME.split(':');
+  const valueEnd = config.END_TIME.split(':');
+
+  startTime.setHours(valueStart[0], valueStart[1], 0);
+  endTime.setHours(valueEnd[0], valueEnd[1], 0);
+
+  console.log(`startTime: ${startTime}, endTime: ${endTime}`);
+
+  return {startTime, endTime};
 }

@@ -15,6 +15,8 @@ const {
     VERY_GOOD_RATE_SMILE = '💲',
     RATE_UP_SMILE = '💪',
     RATE_DOWN_SMILE = '👿',
+    START_TIME = '10:00',
+    END_TIME = '21:00',
 } = process.env;
 
 module.exports = {
@@ -34,4 +36,6 @@ module.exports = {
     VERY_GOOD_RATE_SMILE,
     RATE_UP_SMILE,
     RATE_DOWN_SMILE,
+    START_TIME,
+    END_TIME,
 }
