@@ -9,20 +9,14 @@ const bot = new TelegramBot(config.BOT_ID, {
 
 let lastRate = 0;
 let actualRate = 0;
-
-bot.onText(/\/echo (.+)/, (msg, match) => {
-
-    const chatId = msg.chat.id;
-    const resp = match[1];
-  
-    console.log(`echo. chatid: ${chatId}, resp: ${resp} who: ${msg.from.first_name}`);
-});
+let actualProRate = 0;
 
 bot.onText(/\/rate/, (msg, match) => {
 
     const chatId = msg.chat.id;
 
-    bot.sendMessage(chatId, actualRate);
+    const rateStr = `${actualRate}, pro: ${actualProRate}`;
+    bot.sendMessage(chatId, rateStr);
 
     console.log(`rate. chatid: ${chatId}, who: ${msg.from.first_name}`);
 });
@@ -40,6 +34,8 @@ async function processNewRate(rate){
     console.log(`${(new Date()).toLocaleTimeString()} rate: ${rate.rate}, lastRate: ${lastRate}, proRate: ${rate.proRate}`);
 
     actualRate = rate.rate;
+    actualProRate = rate.proRate;
+
     if(lastRate < 1) {
         lastRate = await rates.getLastRate();
     }
