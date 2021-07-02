@@ -24,10 +24,8 @@
   "homepage": "https://github.com/hornT/Babloved#readme",
   "dependencies": {
     "axios": "^0.19.2",
-    "koa": "^2.11.0",
     "mongodb": "^3.5.3",
-    "node-telegram-bot-api": "^0.40.0",
-    "socks5-https-client": "^1.2.1"
+    "node-telegram-bot-api": "^0.40.0"
   },
   "devDependencies": {
     "dotenv": "^8.2.0"

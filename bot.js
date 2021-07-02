@@ -21,15 +21,6 @@ bot.onText(/\/rate/, (msg, match) => {
     console.log(`rate. chatid: ${chatId}, who: ${msg.from.first_name}`);
 });
 
-bot.onText(/\/history/, (msg, match) => {
-
-    const chatId = msg.chat.id;
-
-    bot.sendMessage(chatId, '<b>not ready</b>', {parse_mode: 'HTML'});
-
-    console.log(`history. chatid: ${chatId}, who: ${msg.from.first_name}`);
-});
-
 async function processNewRate(rate){
     console.log(`${(new Date()).toLocaleTimeString()} rate: ${rate.rate}, lastRate: ${lastRate}, proRate: ${rate.proRate}`);
 
