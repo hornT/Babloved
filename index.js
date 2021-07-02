@@ -3,15 +3,21 @@ const bot = require('./bot');
 const config = require('./config');
 
 processApi();
-setInterval(processApi, config.CURRENCY_API_TIMEOUT);
+setTimeout(processApi, config.CURRENCY_API_TIMEOUT);
 
 async function processApi(){
   if(isWorkingTime() !== true) {
     console.log(`sleep ${new Date()}`);
+
+    setTimeout(processApi, config.CURRENCY_API_SLEEP_TIMEOUT);
+
     return;
   }
+
   let rate = await getCurrency();
   await bot.processNewRate(rate);
+
+  setTimeout(processApi, config.CURRENCY_API_TIMEOUT);
 }
 
 function isWorkingTime(){

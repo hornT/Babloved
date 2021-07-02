@@ -1,6 +1,7 @@
 const {
     PORT = 5500,
     CURRENCY_API_TIMEOUT = 5 * 60 * 1000,
+    CURRENCY_API_SLEEP_TIMEOUT = 60 * 60 * 1000,
     CURRENCY_API = 'https://api.tinkoff.ru/v1/currency_rates?from=USD&to=RUB',
     CURRENCY_CATEGORY = 'SavingAccountTransfers',
     PRO_CURRENCY_CATEGORY = 'CUTransfersPro',
@@ -22,6 +23,7 @@ const {
 module.exports = {
     PORT: Number(PORT),
     CURRENCY_API_TIMEOUT: Number(CURRENCY_API_TIMEOUT),
+    CURRENCY_API_SLEEP_TIMEOUT: Number(CURRENCY_API_SLEEP_TIMEOUT),
     CURRENCY_API,
     CURRENCY_CATEGORY,
     PRO_CURRENCY_CATEGORY,
