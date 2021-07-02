@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/hornT/Babloved#readme",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "mongodb": "^3.5.3",
     "node-telegram-bot-api": "^0.40.0"
   },
