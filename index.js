@@ -3,7 +3,6 @@ const bot = require('./bot');
 const config = require('./config');
 
 processApi();
-setTimeout(processApi, config.CURRENCY_API_TIMEOUT);
 
 async function processApi(){
   if(isWorkingTime() !== true) {
