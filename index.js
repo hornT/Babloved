@@ -13,8 +13,12 @@ async function processApi(){
     return;
   }
 
-  let rate = await getCurrency();
-  await bot.processNewRate(rate);
+  try {
+    let rate = await getCurrency();
+    await bot.processNewRate(rate);
+  } catch (error) {
+    console.log(`Error: ${error}`)
+  }
 
   setTimeout(processApi, config.CURRENCY_API_TIMEOUT);
 }
